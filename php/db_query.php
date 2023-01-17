@@ -29,7 +29,7 @@
 	if( $queryType=="Best Seller" ){
 		if($district=="---" and $season=="---"){
 			$query = "select od.product_id, product_name,arrival_address_normalized, od.lat, od.long, count(*) from order_combined_pd as od
-							join product_list_combined as pdw on od.product_id = pdw.product_id
+							join product_list_combined as pd on od.product_id = pd.product_id
 						where od.product_id IN
 						(select od.product_id from order_combined_pd as od
 							where strpos(od.arrival_address_normalized, '".$county."')  > 0 
@@ -40,7 +40,7 @@
 		}else if($district=="---"){
 			
 			$query = "select od.product_id, product_name,arrival_address_normalized, od.lat, od.long, count(*) from order_combined_pd as od
-							join product_list_combined as pdw on od.product_id = pdw.product_id
+							join product_list_combined as pd on od.product_id = pd.product_id
 						where od.product_id IN
 						(select od.product_id from order_combined_pd as od
 							where strpos(od.arrival_address_normalized, '".$county. "')  > 0 and ". $seasonFilter .
@@ -51,7 +51,7 @@
 			
 		}else if($season=="---"){
 			$query = "select od.product_id, product_name,arrival_address_normalized, od.lat, od.long, count(*) from order_combined_pd as od
-							join product_list_combined as pdw on od.product_id = pdw.product_id
+							join product_list_combined as pd on od.product_id = pd.product_id
 						where od.product_id IN
 						(select od.product_id from order_combined_pd as od
 							where strpos(od.arrival_address_normalized, '".$county."')  > 0 and strpos(od.arrival_address_normalized, '".$district."')  > 0 
@@ -61,7 +61,7 @@
 						group by od.product_id, product_name,arrival_address_normalized, od.lat, od.long";
 		}else{
 			$query = "select od.product_id, product_name,arrival_address_normalized, od.lat, od.long, count(*) from order_combined_pd as od
-							join product_list_combined as pdw on od.product_id = pdw.product_id
+							join product_list_combined as pd on od.product_id = pd.product_id
 						where od.product_id IN
 						(select od.product_id from order_combined_pd as od
 							where strpos(od.arrival_address_normalized, '".$county."')  > 0 and strpos(od.arrival_address_normalized, '".$district."')  > 0 and ". $seasonFilter . 
