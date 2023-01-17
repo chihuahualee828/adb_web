@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <title>ADB project</title>
+	
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+	<link href="css/addon.css?version=1.0" rel="stylesheet">
+	<link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class=""></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ADB Group8</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Portal
+            </div>
+
+            <!-- Nav Item - switch between spatial and graph -->
+			<li class="nav-item">
+				<a class="nav-link" href="index.html">
+                    <i class="fas fa-fw "></i>
+                    <span style=" font-weight:bold; color:#1cc88a;">Spatial</span></a>
+				<a class="nav-link" href="graph.html">
+                    <i class="fas fa-fw"></i>
+                    <span>Graph</span></a>
+			</li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                View
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="#dataTableDiv">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Data Table</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content" style="background-color:gray;">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-gradient-dark topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-auto my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input id="search_box" type="text" class="form-control bg-light border-0 small" placeholder="Search something"
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="button" onclick="search()">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Content Row -->
+                    <div class="row">
+						
+						<div class="col-xl-12 col-md-6 mb-4">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+									<div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-bottom:5px;padding-left:10px;">
+										<h1 class="h3 mb-0 text-gray-800">Select your query:</h1>
+										<!--
+										<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+												class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+										-->
+									</div>
+									<hr class="sidebar-divider" style="padding-bottom:30px;">
+									<div style="display: flex;">
+                                    <div class="col-xl-3 col-md-6 mb-4 col-xl-3">
+										
+										<div class="input-group" href="#" role="button" 
+															 aria-haspopup="true" aria-expanded="false">
+											<input type="text" class="form-control bg-white small" placeholder="Query"
+												 aria-describedby="basic-addon2" style="" disabled>
+										<div class="custom-select" id="querydropdown">
+										  <select hidden>
+											<option value="0">---</option>
+											<option value="1">Best Seller</option>
+											<option value="2">Top Category</option>
+											<option value="3">Best Logistics Cetner Location</option>
+											<option value="100">Add custom SQL</option>
+										  </select>
+										</div>
+										<div id="bg_container" class="bg-popContainer" style="display:none">
+											<div class="pop-box">
+												<div id="close_popup" class="closer">+</div>
+
+												<input type="text" placeholder="Query Name">
+												<input type="text" placeholder="Select filters">
+												<input type="text" placeholder="SQL">
+												<a href="" class="button">Save</a>
+
+											</div>
+										</div>
+										
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" onclick="expand_options('querydropdown')">
+												<i class="fas fa-fw fa-angle-down"></i>
+											</button>
+										</div>
+
+										</div>
+									</div>
+									
+									<div class="col-xl-3 col-md-6 mb-4 col-xl-3">
+						
+										<div class="input-group" href="#" role="button" 
+															 aria-haspopup="true" aria-expanded="false">
+											<input type="text" class="form-control bg-white small" placeholder="County"
+												 aria-describedby="basic-addon2" style="" disabled>
+										<div class="custom-select" id="countydropdown">
+										  <select hidden>
+											<option value="0" >---</option>
+											<option value="1">台北市</option>
+											<option value="2">新北市</option>
+											<option value="3">桃園市</option>
+											<option value="4">台中市</option>
+											<option value="5">台南市</option>
+											<option value="6">高雄市</option>
+											<option value="7">新竹市</option>
+											<option value="8">新竹縣</option>
+											<option value="9">苗栗縣</option>
+											<option value="10">彰化縣</option>
+											<option value="11">南投縣</option>
+											<option value="12">雲林縣</option>
+											<option value="13">嘉義市</option>
+											<option value="14">嘉義縣</option>
+											<option value="15">屏東縣</option>
+											<option value="16">宜蘭縣</option>
+											<option value="17">花蓮縣</option>
+											<option value="18">台東縣</option>
+											<option value="19">澎湖縣</option>
+											<option value="20">金門縣</option>
+											<option value="21">連江縣</option>
+										  </select>
+										</div>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" onclick="expand_options('countydropdown')">
+												<i class="fas fa-fw fa-angle-down"></i>
+											</button>
+										</div>
+
+										</div>
+										
+									</div>
+									<div class="col-xl-3 col-md-6 mb-4 col-xl-3">
+						
+										<div class="input-group" href="#" role="button" 
+															 aria-haspopup="true" aria-expanded="false">
+											<input type="text" class="form-control bg-white small" placeholder="District"
+												 aria-describedby="basic-addon2" style="" disabled>
+										<div class="custom-select" id="districtdropdown">
+										  <select hidden>
+											<option value="0" >---</option>
+										  </select>
+										</div>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" onclick="expand_options('districtdropdown')">
+												<i class="fas fa-fw fa-angle-down"></i>
+											</button>
+										</div>
+
+										</div>
+										
+									</div>
+									
+									<div class="col-xl-3 col-md-6 mb-4 col-xl-3">
+						
+										<div class="input-group" href="#" role="button" 
+															 aria-haspopup="true" aria-expanded="false">
+											<input type="text" class="form-control bg-white small" placeholder="Season"
+												 aria-describedby="basic-addon2" style="" disabled>
+										<div class="custom-select" id="seasondropdown">
+										  <select hidden>
+											<option value="0" >---</option>
+											<option value="1">Q1</option>
+											<option value="2">Q2</option>
+											<option value="3">Q3</option>
+											<option value="4">Q4</option>
+										  </select>
+										</div>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" onclick="expand_options('seasondropdown')">
+												<i class="fas fa-fw fa-angle-down"></i>
+											</button>
+										</div>
+
+										</div>
+									</div>
+                                </div>
+								<div class="col-xl-3 col-md-6 col-xl-3" style="margin-left:auto; margin-right:auto; margin-top:30px; text-align: center;">
+									<div>
+									<a href="#" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color:#1cc88a; color:white; margin-right:20px;" onclick="save_filters();submit_query()"><i
+										class="fas fa-sm text-white-50"></i>Apply</a>
+									<a href="#" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color:#1cc88a; color:white"><i
+										class="fas fa-download fa-sm text-white-50"></i> Save as layer</a>
+									</div>
+								</div>
+								</div>
+                            </div>
+                        </div>
+						
+						
+                    </div>
+
+                    <!-- Content Row -->
+					<div class="row">
+						<div class="col-xl-2 col-md-6 mb-4">
+							<div class="card shadow h-100 py-2">
+                                <div class="card-body">
+									<div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-bottom:5px;padding-left:10px;">
+										<h1 class="h3 mb-0 text-gray-800">Layers:</h1>
+									</div>
+									<hr class="sidebar-divider" style="padding-bottom:30px;">
+										<div id="layers">
+											<div>
+											  <input type="checkbox" id="districtLayer" name="scales" onclick="check_layer(this.id)">
+											  <label for="scales">District</label>
+											</div>
+											<div>
+											  <input type="checkbox" id="countyLayer" name="scales" onclick="check_layer(this.id)">
+											  <label for="scales">County</label>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-10 col-md-6 mb-4">
+							<h3></h3>
+							<!--The div element for the map -->
+							<div id="map" style="height:1000px;widht:1000px;"></div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-xl-12 col-md-6 mb-4">
+							<div class="card shadow h-100 py-2">
+                                <div class="card-body">
+									<div class="d-sm-flex align-items-center justify-content-between mb-4" style="padding-bottom:5px;padding-left:10px;">
+										<h1 class="h3 mb-0 text-gray-800">Data Table:</h1>
+									</div>
+									<hr class="sidebar-divider" style="padding-bottom:30px;">
+									<div class="table-responsive" id="dataTableDiv">
+										<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+											<thead style="display:none;">
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</thead>
+										
+										</table>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+                    <div class="row">
+						
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Direct
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Social
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>ADB final project group 8</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-success" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+	
+	
+	<script>
+		
+		var map;
+		function initMap(){
+			var options = {
+				zoom:10
+			}
+		
+			map = new
+			google.maps.Map(document.getElementById("map"),options);
+			
+			const icons = {
+			  google: {
+			    url: "img/icons8-google-maps-100.png",
+				scaledSize: new google.maps.Size(50, 50),
+			  }
+			};
+			
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+			  navigator.geolocation.getCurrentPosition(
+				(position) => {
+				  const pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude,
+				  };
+				  const infowindow = new google.maps.InfoWindow({
+					content: "you're here"
+				  });
+				  var marker = new google.maps.Marker({
+					position: pos,
+					icon: icons['google'],
+					map: map,
+				  });
+				  marker.addListener("click", () => {
+					infowindow.open({
+					  anchor: marker,
+					  map,
+					});
+				  });
+				  map.setCenter(pos);
+				},
+				function() {
+				  handleLocationError(true, infoWindow, map.getCenter());
+				});
+			} else {
+			  // Browser doesn't support Geolocation
+			  handleLocationError(false, infoWindow, map.getCenter());
+			}
+			
+			var infoWindow = new google.maps.InfoWindow({
+			});
+		}
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ?
+								  'Error: The Geolocation service failed.' :
+								  'Error: Your browser doesn\'t support geolocation.');
+			infoWindow.open(map);
+		}
+
+		window.initMap = initMap;
+		
+		
+		
+		
+		var towndict =
+		{'台北市':['松山區', '大安區', '中正區', '萬華區', '大同區', '中山區', '文山區', '南港區', '內湖區', '士林區', '北投區', '信義區'],'台中市':['中區', '東區', '南區', '西區', '北區', '西屯區', '南屯區', '北屯區', '豐原區', '東勢區', '大甲區', '清水區', '沙鹿區', '梧棲區', '后里區', '神岡區', '潭子區', '大雅區', '新社區', '石岡區', '外埔區', '大安區', '烏日區', '大肚區', '龍井區', '霧峰區', '太平區', '大里區', '和平區'],'基隆市':['中正區', '七堵區', '暖暖區', '仁愛區', '中山區', '安樂區', '信義區'],'台南市':['東區', '南區', '北區', '安南區', '安平區', '中西區', '新營區', '鹽水區', '柳營區', '白河區', '後壁區', '東山區', '麻豆區', '下營區', '六甲區', '官田區', '大內區', '佳里區', '西港區', '七股區', '將軍區', '北門區', '學甲區', '新化區', '善化區', '新市區', '安定區', '山上區', '左鎮區', '仁德區', '歸仁區', '關廟區', '龍崎區', '玉井區', '楠西區', '南化區', '永康區'],'高雄市':['鹽埕區', '鼓山區', '左營區', '楠梓區', '三民區', '新興區', '前金區', '苓雅區', '前鎮區', '旗津區', '小港區', '鳳山區', '林園區', '大寮區', '大樹區', '大社區', '仁武區', '鳥松區', '岡山區', '橋頭區', '燕巢區', '田寮區', '阿蓮區', '路竹區', '湖內區', '茄萣區', '永安區', '彌陀區', '梓官區', '旗山區', '美濃區', '六龜區', '甲仙區', '杉林區', '內門區', '茂林區', '桃源區', '那瑪夏區'],'新北市':['新莊區', '林口區', '五股區', '蘆洲區', '三重區', '泰山區', '新店區', '石碇區', '深坑區', '坪林區', '烏來區', '板橋區', '三峽區', '鶯歌區', '樹林區', '中和區', '土城區', '瑞芳區', '平溪區', '雙溪區', '貢寮區', '金山區', '萬里區', '淡水區', '汐止區', '三芝區', '石門區', '八里區', '永和區'],'宜蘭縣':['宜蘭市', '頭城鎮', '礁溪鄉', '壯圍鄉', '員山鄉', '羅東鎮', '五結鄉', '冬山鄉', '蘇澳鎮', '三星鄉', '大同鄉', '南澳鄉'],'桃園市':['桃園區', '大溪區', '中壢區', '楊梅區', '蘆竹區', '大園區', '龜山區', '八德區', '龍潭區', '平鎮區', '新屋區', '觀音區', '復興區'],'嘉義市':['東區', '西區'],'新竹縣':['竹東鎮', '關西鎮', '新埔鎮', '竹北市', '湖口鄉', '橫山鄉', '新豐鄉', '芎林鄉', '寶山鄉', '北埔鄉', '峨眉鄉', '尖石鄉', '五峰鄉'],'苗栗縣':['苗栗市', '苑裡鎮', '通霄鎮', '公館鄉', '銅鑼鄉', '三義鄉', '西湖鄉', '頭屋鄉', '竹南鎮', '頭份市', '造橋鄉', '後龍鎮', '三灣鄉', '南庄鄉', '大湖鄉', '卓蘭鎮', '獅潭鄉', '泰安鄉'],'南投縣':['南投市', '埔里鎮', '草屯鎮', '竹山鎮', '集集鎮', '名間鄉', '鹿谷鄉', '中寮鄉', '魚池鄉', '國姓鄉', '水里鄉', '信義鄉', '仁愛鄉'],'彰化縣':['彰化市', '鹿港鎮', '和美鎮', '北斗鎮', '員林市', '溪湖鎮', '田中鎮', '二林鎮', '線西鄉', '伸港鄉', '福興鄉', '秀水鄉', '花壇鄉', '芬園鄉', '大村鄉', '埔鹽鄉', '埔心鄉', '永靖鄉', '社頭鄉', '二水鄉', '田尾鄉', '埤頭鄉', '芳苑鄉', '大城鄉', '竹塘鄉', '溪州鄉'],'新竹市':['東區', '北區', '香山區'],'雲林縣':['斗六市', '斗南鎮', '虎尾鎮', '西螺鎮', '土庫鎮', '北港鎮', '古坑鄉', '大埤鄉', '莿桐鄉', '林內鄉', '二崙鄉', '崙背鄉', '麥寮鄉', '東勢鄉', '褒忠鄉', '臺西鄉', '元長鄉', '四湖鄉', '口湖鄉', '水林鄉'],'嘉義縣':['朴子市', '布袋鎮', '大林鎮', '民雄鄉', '溪口鄉', '新港鄉', '六腳鄉', '東石鄉', '義竹鄉', '鹿草鄉', '太保市', '水上鄉', '中埔鄉', '竹崎鄉', '梅山鄉', '番路鄉', '大埔鄉', '阿里山鄉'],'屏東縣':['屏東市', '潮州鎮', '東港鎮', '恆春鎮', '萬丹鄉', '長治鄉', '麟洛鄉', '九如鄉', '里港鄉', '鹽埔鄉', '高樹鄉', '萬巒鄉', '內埔鄉', '竹田鄉', '新埤鄉', '枋寮鄉', '新園鄉', '崁頂鄉', '林邊鄉', '南州鄉', '佳冬鄉', '琉球鄉', '車城鄉', '滿州鄉', '枋山鄉', '三地門鄉', '霧臺鄉', '瑪家鄉', '泰武鄉', '來義鄉', '春日鄉', '獅子鄉', '牡丹鄉'],'花蓮縣':['花蓮市', '光復鄉', '玉里鎮', '新城鄉', '吉安鄉', '壽豐鄉', '鳳林鎮', '豐濱鄉', '瑞穗鄉', '富里鄉', '秀林鄉', '萬榮鄉', '卓溪鄉'],'台東縣':['台東市', '成功鎮', '關山鎮', '卑南鄉', '大武鄉', '太麻里鄉', '東河鄉', '長濱鄉', '鹿野鄉', '池上鄉', '綠島鄉', '延平鄉', '海端鄉', '達仁鄉', '金峰鄉', '蘭嶼鄉'],'金門縣':['金湖鎮', '金沙鎮', '金城鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'],'澎湖縣':['馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'],'連江縣':['南竿鄉', '北竿鄉', '莒光鄉', '東引鄉']};
+		//localStorage.removeItem("filters");
+		var storedFilters = JSON.parse(localStorage.getItem("filters"));
+		var x, i, j, l, ll, selElmnt, a, b, c;
+		var townsize = 0;
+		/*look for any elements with the class "custom-select":*/
+		x = document.getElementsByClassName("custom-select");
+		l = x.length;
+		for (i = 0; i < l; i++) {
+		  selElmnt = x[i].getElementsByTagName("select")[0];
+		  ll = selElmnt.length;
+		  /*for each element, create a new DIV that will act as the selected item:*/
+		  a = document.createElement("DIV");
+		  a.setAttribute("class", "select-selected");
+		  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+		  a.style.border="transparent";
+		  a.style.padding="0px 14px";
+		  var size = selElmnt.options.length;
+		  x[i].appendChild(a);
+		  var county;
+		  var queryType;
+		  if(storedFilters!=null){
+			console.log(storedFilters[i]);
+			a.innerHTML=storedFilters[i];
+			county = storedFilters[1];
+			queryType = storedFilters[0];
+		  }
+		  
+		  
+		  if(queryType=="Best Logistics Cetner Location"){
+			  x[3].style.pointerEvents="none";
+		  }else{
+			  x[3].style.pointerEvents="";
+		  }
+		  
+		  if(i == 1){
+			if(county!=null && county!="---"){
+				console.log(county);
+				towns=towndict[county];
+				console.log(towns);
+				townsize = towns.length;
+			}
+		  }
+		  if (i==2 && townsize > 0){
+			size = townsize+1;
+			for(z = 0;z < townsize; z++){
+				var option = document.createElement("option");
+				option.value = z+1;
+				selElmnt.add(option, z+1);
+				selElmnt.options[z+1].innerHTML = towns[z];
+				
+			}
+			x[2].getElementsByTagName("select")[0] = selElmnt;
+		  }
+		  
+		  
+		  
+		  
+		  
+		  /*for each element, create a new DIV that will contain the option list:*/
+		  b = document.createElement("DIV");
+		  b.setAttribute("class", "select-items select-hide");
+		  
+		  
+		  
+		  /*for each option in the original select element,
+			create a new DIV that will act as an option item:*/
+		  for (j = 0; j < size; j++) {
+			/*when add SQL is clicked, disable season*/
+			
+			
+			c = document.createElement("DIV");
+			c.innerHTML = selElmnt.options[j].innerHTML;
+			if (j == size-1 && i == 0){
+				c.style.paddingTop="20px";
+				c.style.paddingBottom="20px";
+				c.addEventListener("click", function(e) {
+					/*when an item is clicked, add sql pop up*/
+					
+
+					const exitcontainer = document.getElementById("bg_container")
+					const bg_container = document.querySelector(".bg-popContainer")
+					
+					
+					popOutNow();
+					
+				});
+			}else if (j == 3 && i == 0){
+				c.addEventListener("click", function(e) {
+					/*when Best logistics center is clicked, disable season*/
+					
+					
+					var y, i, k, s, h, sl, yl;
+					s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+					sl = s.length;
+					h = this.parentNode.previousSibling;
+					
+					
+					for (i = 0; i < sl; i++) {
+					  if (s.options[i].innerHTML == this.innerHTML) {
+						s.selectedIndex = i;
+						
+						h.innerHTML = this.innerHTML;
+						y = this.parentNode.getElementsByClassName("same-as-selected");
+						yl = y.length;
+						for (k = 0; k < yl; k++) {
+						  y[k].removeAttribute("class");
+						}
+						this.setAttribute("class", "same-as-selected");
+						break;
+					  }
+					}
+					h.click();
+					
+					this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("select-items")[3].previousSibling.innerHTML = "---";
+					x[3].style.pointerEvents="none";
+					
+				});
+				
+			}else if(i == 1){
+				
+				c.addEventListener("click", function(e) {
+					/*when an item is clicked, update the original select box,
+					and the selected item:*/
+					var y, i, k, s, h, sl, yl;
+					s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+					sl = s.length;
+					h = this.parentNode.previousSibling;
+					
+					
+					if(document.getElementById("querydropdown").getElementsByClassName("select-selected")[0].innerHTML=="Best Logistics Cetner Location"){
+						x[3].style.pointerEvents="none";
+					}else{
+						x[3].style.pointerEvents="";
+					}
+					
+					for (i = 0; i < sl; i++) {
+					  if (s.options[i].innerHTML == this.innerHTML) {
+						s.selectedIndex = i;
+						
+						h.innerHTML = this.innerHTML;
+						y = this.parentNode.getElementsByClassName("same-as-selected");
+						yl = y.length;
+						for (k = 0; k < yl; k++) {
+						  y[k].removeAttribute("class");
+						}
+						this.setAttribute("class", "same-as-selected");
+						break;
+					  }
+					}
+					h.click();
+					
+					selElmnt = x[2].getElementsByTagName("select")[0];
+					selItemsElmnt = x[2].getElementsByClassName("select-items")[0];
+					var selElmntSize = selElmnt.length
+					if(this.innerHTML=="---"){
+						size = 1
+						for (var i=0; i<selElmntSize; i++) {
+							selElmnt.remove(0);
+						}
+						option = document.createElement("option");
+						div = document.createElement("div");
+						div.innerHTML = "---";
+						option.value = 0;
+						selElmnt.add(option, 0);
+						selElmnt.options[0].innerHTML = "---";
+						document.getElementsByClassName("custom-select")[2].getElementsByTagName("select")[0] = selElmnt;
+
+					}else{
+						county = this.innerHTML;
+						towns=towndict[county];
+						console.log(towns);
+						townsize = towns.length;
+						for (var i=0; i<selElmntSize; i++) {
+							selElmnt.remove(0);
+						}
+						option = document.createElement("option");
+						div = document.createElement("div");
+						div.innerHTML = "---";
+						option.value = 0;
+						selElmnt.add(option, 0);
+						selElmnt.options[0].innerHTML = "---";
+						
+						if (townsize > 0){
+							size = townsize+1;
+							for(z = 0;z < townsize; z++){
+								option = document.createElement("option");
+								div = document.createElement("div");
+								div.innerHTML = towns[z];
+								option.value = z+1;
+								selElmnt.add(option, z+1);
+								selElmnt.options[z+1].innerHTML = towns[z];
+								
+							}
+						}
+						
+					}
+					
+					
+					var y, i, k, s, h, sl, yl;
+					s = this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName("select")[0];
+					h = this.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("select-items")[2].previousSibling;
+					
+					s.selectedIndex = 0;
+					h.innerHTML = "---";
+					y = this.parentNode.getElementsByClassName("same-as-selected");
+					yl = y.length;
+					for (k = 0; k < yl; k++) {
+					  y[k].removeAttribute("class");
+					}
+					this.setAttribute("class", "same-as-selected");
+					h.click();
+					
+					
+					b = document.createElement("DIV");
+					b.setAttribute("class", "select-items select-hide");
+					for (j = 0; j < size; j++) {
+						/*for each option in the original select element,
+						create a new DIV that will act as an option item:*/
+						c = document.createElement("DIV");
+						c.innerHTML = selElmnt.options[j].innerHTML;
+						c.addEventListener("click", function(e) {
+							/*when an item is clicked, update the original select box,
+							and the selected item:*/
+							var y, i, k, s, h, sl, yl;
+							s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+							sl = s.length;
+							h = this.parentNode.previousSibling;
+							
+							if(document.getElementById("querydropdown").getElementsByClassName("select-selected")[0].innerHTML=="Best Logistics Cetner Location"){
+								x[3].style.pointerEvents="none";
+							}else{
+								x[3].style.pointerEvents="";
+							}
+							
+							for (i = 0; i < sl; i++) {
+							  if (s.options[i].innerHTML == this.innerHTML) {
+								s.selectedIndex = i;
+								
+								h.innerHTML = this.innerHTML;
+								y = this.parentNode.getElementsByClassName("same-as-selected");
+								yl = y.length;
+								for (k = 0; k < yl; k++) {
+								  y[k].removeAttribute("class");
+								}
+								this.setAttribute("class", "same-as-selected");
+								break;
+							  }
+							}
+							h.click();
+							
+						});
+						b.appendChild(c);
+					}
+					x[2].removeChild(selItemsElmnt);
+					x[2].appendChild(b);
+										
+				});
+				
+			}else{
+				c.addEventListener("click", function(e) {
+					/*when an item is clicked, update the original select box,
+					and the selected item:*/
+					var y, i, k, s, h, sl, yl;
+					s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+					sl = s.length;
+					h = this.parentNode.previousSibling;
+					
+					
+					
+					
+					for (i = 0; i < sl; i++) {
+					  if (s.options[i].innerHTML == this.innerHTML) {
+						s.selectedIndex = i;
+						
+						h.innerHTML = this.innerHTML;
+						y = this.parentNode.getElementsByClassName("same-as-selected");
+						yl = y.length;
+						for (k = 0; k < yl; k++) {
+						  y[k].removeAttribute("class");
+						}
+						this.setAttribute("class", "same-as-selected");
+						break;
+					  }
+					}
+					h.click();
+					
+					console.log(document.getElementById("querydropdown").getElementsByClassName("select-selected")[0].innerHTML);
+					if(document.getElementById("querydropdown").getElementsByClassName("select-selected")[0].innerHTML=="Best Logistics Cetner Location"){
+						x[3].style.pointerEvents="none";
+					}else{
+						x[3].style.pointerEvents="";
+					}
+					
+				});
+				
+				
+			}
+			b.appendChild(c);
+		  }
+		  x[i].appendChild(b);
+		  a.addEventListener("click", function(e) {
+			  /*when the select box is clicked, close any other select boxes,
+			  and open/close the current select box:*/
+			  e.stopPropagation();
+			  closeAllSelect(this);
+			  this.nextSibling.classList.toggle("select-hide");
+			  this.classList.toggle("select-arrow-active");
+			});
+		}
+		function closeAllSelect(elmnt) {
+		  /*a function that will close all select boxes in the document,
+		  except the current select box:*/
+		  var x, y, i, xl, yl, arrNo = [];
+		  x = document.getElementsByClassName("select-items");
+		  y = document.getElementsByClassName("select-selected");
+		  xl = x.length;
+		  yl = y.length;
+		  for (i = 0; i < yl; i++) {
+			if (elmnt == y[i]) {
+			  arrNo.push(i)
+			} else {
+			  y[i].classList.remove("select-arrow-active");
+			}
+		  }
+		  for (i = 0; i < xl; i++) {
+			if (arrNo.indexOf(i)) {
+			  x[i].classList.add("select-hide");
+			}
+		  }
+		}
+		
+		function expand_options(id){
+			document.getElementById(id).click();
+		}
+		
+		function save_filters() {
+			query = document.getElementById("querydropdown");
+			county = document.getElementById("countydropdown");
+			district = document.getElementById("districtdropdown");
+			season = document.getElementById("seasondropdown");
+			query = query.getElementsByClassName("select-selected");
+			county = county.getElementsByClassName("select-selected");
+			district = district.getElementsByClassName("select-selected");
+			season = season.getElementsByClassName("select-selected");
+			var filters = [];
+			filters.push(query[0].innerHTML);
+			filters.push(county[0].innerHTML);
+			filters.push(district[0].innerHTML);
+			filters.push(season[0].innerHTML);
+			localStorage.setItem("filters", JSON.stringify(filters));
+			var storedFilters = JSON.parse(localStorage.getItem("filters"));
+			console.log(storedFilters);
+			
+		}
+		
+		
+		
+		
+		
+
+		const exitcontainer = document.getElementById("bg_container")
+		const bg_container = document.querySelector(".bg-popContainer")
+
+
+		function popOutNow() {
+			document.querySelector(".bg-popContainer").style.display = "flex";
+			
+		}
+
+
+		const cancelPop = document.getElementById("close_popup");
+
+		cancelPop.addEventListener("click", CancelPopOut);
+
+		function CancelPopOut(e) {
+			e.preventDefault(); 
+			bg_container.style.display = "none";
+
+		}
+		
+		
+		function load_layers(){
+			var checkboxes = document.getElementById("layers").getElementsByTagName("input");
+			for (let each of checkboxes){
+				chekcboxId = each.id + "Checkbox";
+				if(localStorage.getItem(chekcboxId)!=null){
+					if(localStorage.getItem(chekcboxId)=="true"){
+						document.getElementById(each.id).checked=true;
+					}else{
+						document.getElementById(each.id).checked=false;
+						
+					}
+				}else{
+					document.getElementById(each.id).checked=false;
+				}
+			}
+			
+		}
+		load_layers();
+		
+		
+
+		
+		
+		
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtg2Pv0arfhEKvfUltROH8mNHm0G6AH54&callback=initMap">
+	</script>
+	<script src="js/query.js"></script>
+	<script src="js/checklayer.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js"></script>
+	
+	<!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+	
+</body>
+
+</html>
