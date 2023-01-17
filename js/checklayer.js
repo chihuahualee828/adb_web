@@ -57,6 +57,26 @@ function check_layer(id) {
   }
 }
 
+function load_layers(){
+	var checkboxes = document.getElementById("layers").getElementsByTagName("input");
+	for (let each of checkboxes){
+		chekcboxId = each.id + "Checkbox";
+		if(localStorage.getItem(chekcboxId)!=null){
+			if(localStorage.getItem(chekcboxId)=="true"){
+				document.getElementById(each.id).checked=true;
+				check_layer(each.id);
+			}else{
+				document.getElementById(each.id).checked=false;
+				
+			}
+		}else{
+			document.getElementById(each.id).checked=false;
+		}
+	}
+	
+}
+load_layers();
+
 
 
 
