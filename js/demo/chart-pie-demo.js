@@ -4,9 +4,16 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Draw product pie chart (parameter = county/dist./season)
 function draw_pie_chart(searchText, searchhBy, parameter){
-	
-	
-	
+
+	var id = "myPieChart"
+	var county = "";
+	if(parameter == "district"){
+		id = "myPieChart2";
+		county = searchText.split("/")[1];
+		searchText = searchText.split("/")[0];
+	}else if (parameter =="season"){
+		id = "myPieChart3";
+	}
 	console.log(searchText,searchhBy, parameter);
 	
 	$.ajax({
@@ -15,6 +22,7 @@ function draw_pie_chart(searchText, searchhBy, parameter){
 		dataType: 'text',
 		data: {	
 			searchText: searchText,
+			county: county,
 			searchhBy: searchhBy,
 			parameter: parameter
 		},
@@ -34,10 +42,42 @@ function draw_pie_chart(searchText, searchhBy, parameter){
 				
 			});
 			
-			var ctx = document.getElementById("myPieChart");
-			ctx.width = 1000;
-			ctx.height = 1000;
+			var ctx = document.getElementById(id);
 			var myPieChart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: labels,
+				datasets: [{
+				  data: data,
+				  backgroundColor: colors,
+				  hoverBackgroundColor: colors,
+				  hoverBorderColor: "rgba(234, 236, 244, 1)",
+				}],
+			  },
+			options: {
+				maintainAspectRatio: false,
+				tooltips: {
+				  backgroundColor: "rgb(255,255,255)",
+				  bodyFontColor: "#858796",
+				  borderColor: '#dddfeb',
+				  borderWidth: 1,
+				  xPadding: 10,
+				  yPadding: 10,
+				  displayColors: false,
+				  caretPadding: 10,
+				},
+				legend: {
+				  display: true
+				},
+				cutoutPercentage: 0,
+				}
+			});
+			//myPieChart.destroy();
+			//removeData(myPieChart);
+			//addData(myPieChart, labels, data, colors);
+			//console.log(myPieChart.data.datasets[0].data);
+			/**
+			myPieChart = new Chart(ctx, {
 			  type: 'pie',
 			  data: {
 				labels: labels,
@@ -66,6 +106,7 @@ function draw_pie_chart(searchText, searchhBy, parameter){
 				cutoutPercentage: 0,
 			  },
 			});
+			**/
 		},
 		error: function(response) {
 			console.log(response);
@@ -80,3 +121,20 @@ function dynamicColors(){
 	var b = Math.floor(Math.random() * 255);
 	return "rgb(" + r + "," + g + "," + b + ")";
  };
+
+
+function addData(chart, label, data, colors) {
+    chart.data.labels=label;
+	chart.data.datasets[0].data = data;
+	chart.data.datasets[0].backgroundColor = colors;
+	chart.data.datasets[0].hoverBorderColor = "rgba(234, 236, 244, 1)";
+    chart.update();
+	
+};
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets[0].data=[];
+    chart.update();
+};
+ 
