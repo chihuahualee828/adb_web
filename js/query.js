@@ -30,9 +30,13 @@ function submit_query(){
 				if(query[0]=="Best Seller"){
 					product_id = response[1][response[0].indexOf("product_id")];
 					draw_pie_chart(product_id, "product_id", "county");
+					draw_pie_chart(product_id+"/"+query[1], "product_id", "district");
+					draw_pie_chart(product_id, "product_id", "season");
 				}else if (query[0]=="Top Category") {
 					primary_category = response[1][response[0].indexOf("primary_category")];
 					draw_pie_chart(primary_category, "primary_category", "county");
+					draw_pie_chart(primary_category+"/"+query[1], "primary_category", "district");
+					draw_pie_chart(primary_category, "primary_category", "season");
 				}
 				
 			}else{
@@ -63,10 +67,13 @@ function search(){
 					generateDataTable(response);
 					if(response[0].indexOf("product_id")==0){
 						draw_pie_chart(searchText,"product_id", "county");
+						draw_pie_chart(searchText, "product_id", "season");
 					}else if(response[0].indexOf("product_name")==0){
 						draw_pie_chart(searchText,"product_name", "county");
+						draw_pie_chart(searchText, "product_name", "season");
 					}else if(response[0].indexOf("primary_category")==0){
 						draw_pie_chart(searchText,"primary_category", "county");
+						draw_pie_chart(searchText, "primary_category", "season");
 					}
 				}else{
 					window.alert("no result");
@@ -95,6 +102,16 @@ function small_search(searchText){
 				if(response!="" && response!=null && response.length>1){
 					draw_points(response, "dollar");
 					generateDataTable(response);
+					if(response[0].indexOf("product_id")==0){
+						draw_pie_chart(searchText,"product_id", "county");
+						draw_pie_chart(searchText, "product_id", "season");
+					}else if(response[0].indexOf("product_name")==0){
+						draw_pie_chart(searchText,"product_name", "county");
+						draw_pie_chart(searchText, "product_name", "season");
+					}else if(response[0].indexOf("primary_category")==0){
+						draw_pie_chart(searchText,"primary_category", "county");
+						draw_pie_chart(searchText, "primary_category", "season");
+					}
 				}else{
 					window.alert("no result");
 				}
