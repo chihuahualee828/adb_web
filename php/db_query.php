@@ -84,7 +84,7 @@
 			$query = "select rg_id, rm_id, rs_id, od.product_id, product_name, primary_category, arrival_address_normalized, lat, long from order_combined_pd as od, product_list_combined as pd
 						where od.product_id = pd.product_id and
 						pd.primary_category = 
-						(SELECT primary_category from prodcut_category_rank_by_county_".$season ." countyname='".$county ."') and strpos(arrival_address_normalized, '".$county ."') > 0";
+						(SELECT primary_category from prodcut_category_rank_by_county_".$season ." where countyname='".$county ."') and strpos(arrival_address_normalized, '".$county ."') > 0";
 			
 		}else if($season=="---"){
 			$query = "select rg_id, rm_id, rs_id, od.product_id, product_name, primary_category, arrival_address_normalized, lat, long from order_combined_pd as od, product_list_combined as pd
